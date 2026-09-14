@@ -1,0 +1,15 @@
+{
+  "name": "Etymon — Grow Your Vocabulary Forest",
+  "short_name": "Etymon",
+  "description": "Learn English word roots by growing a personal vocabulary forest, one root family at a time.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#faf6ec",
+  "theme_color": "#1e4a34",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
