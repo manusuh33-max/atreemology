@@ -1,6 +1,6 @@
 import { el, mount, clear } from './ui/dom.js';
 import { renderBottomNav } from './ui/bottomNav.js';
-import { getState, subscribe } from './state/store.js';
+import { getState, subscribe, unlockSupporter } from './state/store.js';
 import { onRouteChange, parseHash, navigate } from './router.js';
 
 import { renderOnboarding } from './screens/onboarding.js';
@@ -43,7 +43,22 @@ function renderCrashScreen(main, error) {
   );
 }
 
+// The Stripe Payment Link's success URL points back here with
+// ?supporter=welcome (see profile.js for the link + README for setup notes).
+// There's no backend to verify the purchase against, so arriving with this
+// exact param is treated as proof enough, consistent with the cosmetic-only,
+// trust-based nature of the unlock (see store.js unlockSupporter).
+function checkSupporterRedirect() {
+  const url = new URL(window.location.href);
+  if (url.searchParams.get('supporter') !== 'welcome') return;
+  unlockSupporter();
+  url.searchParams.delete('supporter');
+  window.history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
+}
+
 export function boot(root) {
+  checkSupporterRedirect();
+
   const shell = el(
     'div.app-shell',
     el('main.app-main#app-main'),
@@ -57,6 +72,7 @@ export function boot(root) {
   function render() {
     try {
       const state = getState();
+      document.documentElement.setAttribute('data-supporter-theme', state.profile.supporterTheme ? '1' : '0');
 
       if (!state.onboarded) {
         clear(navHost);

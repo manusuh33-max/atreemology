@@ -139,3 +139,38 @@ export function recordQuizHistory(keys) {
 export function resetAllProgress() {
   commit(resetState());
 }
+
+// ---- supporter unlock ----
+// One-time cosmetic perk (see styles.css "Golden Grove" theme) triggered by
+// a Stripe Payment Link redirect back into the app (see app.js). There's no
+// backend or account system, so this is intentionally a device-local,
+// trust-based unlock, not a verified license — consistent with everything
+// else about progress in this app already living only on one device.
+
+let justUnlockedSupporter = false;
+
+export function unlockSupporter() {
+  if (state.profile.supporter) return;
+  justUnlockedSupporter = true;
+  let next = {
+    ...state,
+    profile: {
+      ...state.profile,
+      supporter: true,
+      supporterTheme: true,
+      supporterSince: new Date().toISOString(),
+    },
+  };
+  next = addJournalEntry(next, {
+    text: '🌟 Became an Atreemology Supporter and unlocked the Golden Grove theme. Thank you!',
+  });
+  commit(next);
+}
+
+/** Consumes (and clears) the one-time "just became a supporter" flag, so the
+ * Profile screen can show a welcome banner exactly once per unlock. */
+export function consumeSupporterWelcome() {
+  const was = justUnlockedSupporter;
+  justUnlockedSupporter = false;
+  return was;
+}

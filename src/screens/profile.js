@@ -1,11 +1,16 @@
 import { el, mount } from '../ui/dom.js';
 import { icon } from '../ui/icons.js';
-import { getState, updateProfile, resetAllProgress } from '../state/store.js';
+import { getState, updateProfile, resetAllProgress, consumeSupporterWelcome } from '../state/store.js';
 import { forestSummary } from '../state/selectors.js';
 import { exportProgress } from '../state/storage.js';
 import { ROOTS } from '../data/roots.js';
 import { COMING_SOON_ROOTS } from '../data/comingSoonRoots.js';
 import { renderJournalList } from '../ui/journalEntry.js';
+
+// Set these once real pages exist — see README "Supporting the project" for
+// exactly what to create and where these two values come from.
+const KOFI_URL = 'https://ko-fi.com/atreemology';
+const STRIPE_SUPPORTER_URL = 'https://buy.stripe.com/REPLACE_WITH_YOUR_PAYMENT_LINK';
 
 const ROADMAP_TIERS = [
   {
@@ -23,10 +28,18 @@ const ROADMAP_TIERS = [
 export function renderProfile(container) {
   const state = getState();
   const summary = forestSummary(state);
+  const showWelcome = consumeSupporterWelcome();
 
   const view = el(
     'div.screen.profile-screen',
     el('header.screen-header', el('h1', 'Profile')),
+    showWelcome
+      ? el(
+          'div.supporter-welcome',
+          el('span', { style: 'font-size:22px' }, '🌟'),
+          el('span', 'Welcome, Supporter! Thank you for keeping the forest growing. Your Golden Grove theme is on below.')
+        )
+      : null,
     el(
       'section.profile-card',
       el('label.field-label', 'Name', el('input.text-input', {
@@ -71,6 +84,12 @@ export function renderProfile(container) {
     ),
     el(
       'section.home-section',
+      el('h2', 'Support Atreemology'),
+      renderSupporterCard(state),
+      renderTipJarCard()
+    ),
+    el(
+      'section.home-section',
       el('h2', 'Full field journal'),
       renderJournalList(state.journal)
     ),
@@ -107,4 +126,53 @@ export function renderProfile(container) {
 
 function statBlock(label, value) {
   return el('div.stat-block', el('strong', String(value)), el('span', label));
+}
+
+function renderSupporterCard(state) {
+  if (state.profile.supporter) {
+    return el(
+      `div.supporter-card.supporter-card--active`,
+      el('span.supporter-badge', icon('sparkle', 14), 'Supporter'),
+      el('p', 'Thank you for supporting Atreemology. The Golden Grove theme below is yours on this device.'),
+      el(
+        'label.toggle-row',
+        el('span', 'Golden Grove theme', el('span.toggle-hint', 'Recolors buttons and navigation in gold')),
+        el('input', {
+          type: 'checkbox',
+          checked: state.profile.supporterTheme,
+          onChange: (e) => updateProfile({ supporterTheme: e.target.checked }),
+        })
+      )
+    );
+  }
+  return el(
+    'div.supporter-card',
+    el(
+      'p',
+      "Atreemology has no ads, no accounts, and no subscriptions, and it's staying that way. A one-time Supporter purchase unlocks a Golden Grove theme across the whole app and helps fund verifying new root families for the roadmap above."
+    ),
+    el(
+      'a.btn.btn-accent.btn-block',
+      { href: STRIPE_SUPPORTER_URL, target: '_blank', rel: 'noopener noreferrer' },
+      icon('gift', 18),
+      'Become a Supporter'
+    ),
+    el(
+      'p.field-hint',
+      "One-time payment, no account needed. Since Atreemology doesn't have accounts, this unlocks on this device only, the same as your progress, so reinstalling or switching devices means it won't carry over automatically."
+    )
+  );
+}
+
+function renderTipJarCard() {
+  return el(
+    'div.supporter-card',
+    { style: 'margin-top:14px;' },
+    el('p', "Prefer a small no-strings tip instead? Buy the forest a coffee on Ko-fi, no perks, just appreciated."),
+    el(
+      'a.btn.btn-secondary.btn-block',
+      { href: KOFI_URL, target: '_blank', rel: 'noopener noreferrer' },
+      'Leave a tip on Ko-fi'
+    )
+  );
 }

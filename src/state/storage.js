@@ -14,6 +14,9 @@ function defaultState() {
     profile: {
       name: '',
       calmMode: false,
+      supporter: false,
+      supporterTheme: false,
+      supporterSince: null,
     },
     streak: {
       current: 0,
