@@ -4,9 +4,12 @@ import { getState, updateProfile, resetAllProgress } from '../state/store.js';
 import { forestSummary } from '../state/selectors.js';
 import { exportProgress } from '../state/storage.js';
 import { ROOTS } from '../data/roots.js';
-import { COMING_SOON_ROOTS } from '../data/comingSoonRoots.js';
 import { renderJournalList } from '../ui/journalEntry.js';
 
+// Only the Foundational Grove is named, counted, and described — this is
+// the entire free experience. Everything past it is intentionally a single
+// greyed-out, generic line: no future tier names, category hints, or counts
+// that would tell someone what's locked beyond "there's more later."
 const ROADMAP_TIERS = [
   {
     name: 'Foundational Grove',
@@ -14,10 +17,13 @@ const ROADMAP_TIERS = [
     detail: `Verified and plantable right now, in three waves: 10 standalone roots first, then 12 that combine with another into a two-root word (like dict + bene → benediction, or in- + spect → inspect), then 4 hub roots — spect alone bridges to six prefixes, tele to four others — where growing one tree visibly reaches into several more. Six of those 12 are prefixes (in-, ex-, re-, circum-, per-, retro-) prototyped on the spect family: each gets its own small tree, and words like "inspect" or "expect" render as a literal branch connecting the prefix's tree to spect's.`,
     done: true,
   },
-  { name: 'Core Forest', count: COMING_SOON_ROOTS.length, detail: 'Standard Greco-Latin roots, scoped and named — next up for word-by-word verification, following the same basic-roots-first-then-combinations approach once they\'re added.', done: false },
-  { name: 'Deep Forest', count: 300, detail: 'Intermediate academic vocabulary, once the Core Forest is verified.', done: false },
-  { name: 'Scholar Grove', count: 500, detail: 'Advanced vocabulary for confident readers.', done: false },
-  { name: 'Specialist Biomes', count: 1000, detail: 'Medical, legal, and scientific root families.', done: false },
+  {
+    name: 'More on the way',
+    count: null,
+    detail: 'Future updates will keep adding new root families beyond the Foundational Grove.',
+    done: false,
+    locked: true,
+  },
 ];
 
 export function renderProfile(container) {
@@ -62,8 +68,12 @@ export function renderProfile(container) {
         'div.roadmap-list',
         ROADMAP_TIERS.map((tier) =>
           el(
-            `div.roadmap-tier${tier.done ? '.roadmap-tier--done' : ''}`,
-            el('div.roadmap-tier-head', el('strong', tier.name), el('span', `${tier.count} roots`)),
+            `div.roadmap-tier${tier.done ? '.roadmap-tier--done' : ''}${tier.locked ? '.roadmap-tier--locked' : ''}`,
+            el(
+              'div.roadmap-tier-head',
+              el('strong', tier.locked ? `🔒 ${tier.name}` : tier.name),
+              tier.count != null ? el('span', `${tier.count} roots`) : null
+            ),
             el('p', tier.detail)
           )
         )

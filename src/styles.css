@@ -373,33 +373,23 @@ a { color: var(--color-primary-dark); }
 .root-card.root-locked .root-card-emblem { filter: grayscale(1); }
 
 .coming-soon-section { margin-top: 22px; }
-.coming-soon-toggle {
-  width: 100%;
+/* Static, non-interactive, deliberately grey — no per-root reveal beyond
+   the Foundational Grove. Just signals there's more ahead, nothing more. */
+.coming-soon-lock-note {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 10px;
   background: var(--color-surface-alt);
   border: 1px dashed var(--color-border);
   border-radius: var(--radius-md);
   padding: 12px 14px;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--color-text-muted);
-  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-faint);
+  filter: grayscale(1);
+  opacity: 0.85;
 }
-.coming-soon-caret { font-size: 11px; }
-.coming-soon-note { font-size: 12px; color: var(--color-text-faint); margin: 10px 2px; }
-.coming-soon-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-.coming-soon-chip {
-  background: var(--color-surface-alt);
-  border-radius: var(--radius-sm);
-  padding: 8px 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.coming-soon-chip strong { font-size: 12px; }
-.coming-soon-chip span { font-size: 11px; color: var(--color-text-faint); }
+.coming-soon-lock-icon { font-size: 15px; filter: grayscale(1); opacity: 0.7; }
 .progress-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--color-text-muted); margin-bottom: 4px; }
 .progress-bar { height: 8px; border-radius: 999px; background: var(--color-surface-alt); overflow: hidden; }
 .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--leaf-mid), var(--leaf-bright)); border-radius: 999px; transition: width var(--transition-med); }
@@ -736,6 +726,7 @@ a { color: var(--color-primary-dark); }
   padding: 12px 14px;
 }
 .roadmap-tier--done { background: var(--color-primary-light); border-color: var(--color-primary); }
+.roadmap-tier--locked { background: var(--color-surface-alt); border-style: dashed; filter: grayscale(1); opacity: 0.8; }
 .roadmap-tier-head { display: flex; justify-content: space-between; align-items: baseline; font-size: 14px; margin-bottom: 4px; }
 .roadmap-tier-head span { font-size: 12px; color: var(--color-text-muted); font-weight: 600; }
 .roadmap-tier p { margin: 0; font-size: 12px; color: var(--color-text-muted); }
