@@ -2,46 +2,222 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#1e4a34" />
-  <title>Atreemology — grow your vocabulary forest</title>
-  <meta name="description" content="Atreemology teaches English word roots by growing a personal vocabulary forest, one root family at a time." />
+  <title>Atreemology — Grow Your Vocabulary Forest</title>
+  <meta name="description" content="Learn English word roots and grow a personal vocabulary forest. Atreemology uses spaced repetition to help you build vocabulary that actually sticks." />
 
-  <!-- App icons. icon.svg is the scalable source; the PNGs below cover
-       browsers/OSes (notably Safari and Android home-screen shortcuts)
-       that don't support SVG favicons. -->
   <link rel="icon" href="/icons/icon-512.png" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png" />
   <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
-  <link rel="manifest" href="/manifest.json" />
 
-  <!-- "Add to Home Screen" on iOS reads these directly, independent of
-       manifest.json (Safari's manifest support is partial). -->
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Atreemology" />
-  <meta name="mobile-web-app-capable" content="yes" />
-
-  <!-- Link-preview cards (iMessage, WhatsApp, Instagram, Slack, etc.).
-       og:url and og:image are absolute URLs pointing at the real deployed
-       domain, atreemology.com — the bare apex domain is the canonical host
-       (see README's "Publishing it" section for the GitHub Pages + DNS
-       setup; www redirects to the apex there). -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Atreemology — grow your vocabulary forest" />
-  <meta property="og:description" content="Learn English word roots by growing a personal vocabulary forest, one root family at a time." />
+  <meta property="og:title" content="Atreemology — Grow Your Vocabulary Forest" />
+  <meta property="og:description" content="Learn English word roots and grow a personal vocabulary forest, one tree at a time." />
   <meta property="og:url" content="https://atreemology.com/" />
   <meta property="og:image" content="https://atreemology.com/icons/icon-512.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Atreemology — grow your vocabulary forest" />
-  <meta name="twitter:description" content="Learn English word roots by growing a personal vocabulary forest, one root family at a time." />
+  <meta name="twitter:title" content="Atreemology — Grow Your Vocabulary Forest" />
+  <meta name="twitter:description" content="Learn English word roots and grow a personal vocabulary forest, one tree at a time." />
   <meta name="twitter:image" content="https://atreemology.com/icons/icon-512.png" />
 
-  <link rel="stylesheet" href="/src/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/marketing.css" />
 </head>
 <body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.js"></script>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="site-logo" href="/"><img src="/assets/brand/atreemology-lockup-light.png" alt="Atreemology" /></a>
+      <nav class="site-nav">
+        <div class="site-nav-links">
+          <a href="/how-it-works.html">How it works</a>
+          <a href="/about.html">About</a>
+          <a href="/faq.html">FAQ</a>
+        </div>
+        <a class="btn btn-primary" href="/app/">Open the app</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="hero-eyebrow">🌱 Free to start — no account needed</span>
+        <h1>Grow your vocabulary, one root at a time.</h1>
+        <p class="hero-sub">Atreemology teaches you the roots English words grow from — plant one, watch it branch into a dozen words you'll actually remember, and build a personal forest as you go.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary btn-lg" href="/app/">Start growing — it's free</a>
+          <a class="btn btn-ghost btn-lg" href="/how-it-works.html">See how it works</a>
+        </div>
+        <p class="hero-note">Works in any browser. No sign-up, no ads, no credit card.</p>
+      </div>
+      <div class="hero-visual">
+        <img class="shot-frame" src="/assets/screenshots/desktop-home.png" alt="Atreemology home screen, showing trees planted, words learned, and a field journal of recent progress" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="how-it-works">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Four small steps. A whole forest, eventually.</h2>
+        <p>No flashcard decks to grind through — just a root, a tree, and a habit that adds up.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <h3>Plant a root</h3>
+          <p>Every lesson starts with one word root — a small, real piece of English with a clear meaning, like "spec" (to look) or "bene" (good).</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <h3>Watch it grow</h3>
+          <p>Learn the words that share that root — spectator, inspect, benefit, benevolent — and watch your root grow into a full tree, branch by branch.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <h3>Build your forest</h3>
+          <p>Finished trees join your forest — a visual record of every root you've mastered, not just a number going up.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <h3>Never forget it</h3>
+          <p>Words come back for review right before you'd naturally forget them, using spaced repetition under the hood.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Real roots. Real words. No guesswork.</h2>
+        <p>Every root is hand-verified, not auto-generated — so the words it grows are ones you can trust.</p>
+      </div>
+      <div class="roots-grid">
+        <div class="root-example">
+          <div class="root-name">dict</div>
+          <div class="root-meaning">"to say, to speak" — Latin</div>
+          <p class="root-words">Grows into <strong>predict</strong>, <strong>dictate</strong>, and <strong>verdict</strong>.</p>
+        </div>
+        <div class="root-example">
+          <div class="root-name">spect</div>
+          <div class="root-meaning">"to look, to watch" — Latin</div>
+          <p class="root-words">Grows into <strong>spectator</strong>, <strong>inspect</strong>, and <strong>perspective</strong>.</p>
+        </div>
+        <div class="root-example">
+          <div class="root-name">bene</div>
+          <div class="root-meaning">"well, good" — Latin</div>
+          <p class="root-words">Grows into <strong>benefit</strong>, <strong>benevolent</strong>, and <strong>benediction</strong>.</p>
+        </div>
+        <div class="root-example">
+          <div class="root-name">tele</div>
+          <div class="root-meaning">"far, distant" — Greek</div>
+          <p class="root-words">Grows into <strong>telephone</strong>, <strong>television</strong>, and <strong>telegraph</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap">
+      <div class="shot-row">
+        <div class="shot-visual">
+          <img class="shot-frame" src="/assets/screenshots/desktop-forest.png" alt="Atreemology forest screen showing several planted trees, with a branch labelled 'benediction' connecting two of them" />
+        </div>
+        <div class="shot-copy">
+          <h2>Some words grow on two trees at once.</h2>
+          <p>"Benediction" comes from both <em>bene</em> (good) and <em>dict</em> (to speak) — so it renders as a real branch connecting those two trees in your forest, right on screen. It's proof the roots actually connect, not just a trivia note in a sidebar.</p>
+          <a class="btn btn-ghost" href="/how-it-works.html">See the mechanic in detail</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Built for a few minutes a day</h2>
+        <p>Open it, tend a root, close it. That's the whole habit.</p>
+      </div>
+      <div class="feature-rows">
+        <div class="feature-row">
+          <div class="feature-icon">🌲</div>
+          <div>
+            <h3>A visual forest, not just a score</h3>
+            <p>Progress you can actually look at — every finished tree stays in your forest for good.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon">🔁</div>
+          <div>
+            <h3>Spaced repetition, automatically</h3>
+            <p>Words come back for review right before you'd forget them — you never have to think about scheduling it.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon">🆓</div>
+          <div>
+            <h3>26 roots, completely free</h3>
+            <p>The full Foundational Grove — 26 hand-verified root families — is free to grow through, no account required.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon">💾</div>
+          <div>
+            <h3>Your forest, exportable</h3>
+            <p>Progress lives on your device — export a backup any time so it's never at risk of disappearing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="cta-band">
+        <h2>Ready to plant your first root?</h2>
+        <p>It takes less than a minute to get started — no sign-up, no app store required.</p>
+        <a class="btn btn-primary btn-lg" href="/app/">Start growing — it's free</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="/assets/brand/atreemology-lockup-light.png" alt="Atreemology" />
+          <p class="footer-tagline">Atreemology — where words put down roots.</p>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h4>Product</h4>
+            <a href="/how-it-works.html">How it works</a>
+            <a href="/faq.html">FAQ</a>
+            <a href="/app/">Open the app</a>
+          </div>
+          <div class="footer-col">
+            <h4>Company</h4>
+            <a href="/about.html">About</a>
+            <a href="/contact.html">Contact</a>
+          </div>
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <a href="/privacy.html">Privacy policy</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Atreemology. All rights reserved.</span>
+        <span>Made for people who like words.</span>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>

@@ -196,6 +196,11 @@ a { color: var(--color-primary-dark); }
 .nav-tab.active { color: var(--color-primary); }
 .nav-tab:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 
+/* Sidebar brand header — hidden on mobile (the bottom nav has no room for
+   it), shown only once the desktop breakpoint turns .bottom-nav into a
+   left sidebar (see the desktop section at the bottom of this file). */
+.nav-brand { display: none; }
+
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-flex;
@@ -751,7 +756,83 @@ a { color: var(--color-primary-dark); }
   }
 }
 
-@media (min-width: 481px) {
-  body { background: var(--color-bark); }
-  #root { padding: 24px 0; }
+/* ---------- Desktop layout ----------
+   Below 900px the app is untouched: one mobile-width column with a bottom
+   tab bar, exactly like a phone. There used to be a rule here that just
+   added vertical padding and a bark-brown background behind the same
+   480px-wide column for ANY screen over 480px — which is exactly why the
+   desktop/laptop view looked like a phone mockup floating in empty space
+   instead of a real desktop layout. This replaces that with an actual
+   reflow at a real desktop breakpoint.
+
+   No markup changes were needed to move the nav from bottom to side: the
+   DOM is always [.app-main, .bottom-nav] inside .app-shell (see app.js),
+   and flex-direction: row-reverse visually places the LAST child (the
+   nav) first — i.e. on the left — without touching JS. */
+@media (min-width: 900px) {
+  body { background: var(--color-surface-alt); }
+  #root { padding: 28px 24px; }
+  .app-shell {
+    max-width: 1240px;
+    flex-direction: row-reverse;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* ----- sidebar (same .bottom-nav element, reflowed) ----- */
+  .bottom-nav {
+    position: static;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    width: 232px;
+    flex-shrink: 0;
+    gap: 4px;
+    padding: 20px 14px;
+    border-top: none;
+    border-right: 1px solid var(--color-border);
+    overflow-y: auto;
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 10px 20px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .nav-brand-icon { border-radius: 8px; display: block; }
+  .nav-brand-text { font-size: 17px; font-weight: 800; color: var(--color-primary-dark); }
+  .nav-tab {
+    flex: none;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 11px 12px;
+    border-radius: var(--radius-sm);
+  }
+  .nav-tab .icon { width: 22px; height: 22px; flex-shrink: 0; }
+  .nav-label { font-size: 14px; }
+  .nav-tab.active { background: var(--color-primary-light); }
+  .nav-tab:hover { background: var(--color-surface-alt); }
+
+  /* ----- main content ----- */
+  .app-main { padding-bottom: 24px; }
+  .screen { padding: 32px 40px 8px; max-width: 900px; }
+
+  /* ----- layouts that were single-column purely for phone width ----- */
+  .root-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 14px;
+  }
+  .root-card-group-heading { grid-column: 1 / -1; }
+
+  .roadmap-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .profile-stats-grid { grid-template-columns: repeat(6, 1fr); }
+
+  .forest-scene { height: 400px; }
+  .root-tree { max-width: 420px; }
+
+  .onboarding-screen { max-width: 560px; margin: 0 auto; }
 }

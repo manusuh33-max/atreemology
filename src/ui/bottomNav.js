@@ -13,6 +13,14 @@ export function renderBottomNav(activeTab, onNavigate) {
   return el(
     'nav.bottom-nav',
     { 'aria-label': 'Primary' },
+    // Only visible at the desktop breakpoint (styles.css turns .bottom-nav
+    // into a left sidebar there) — on mobile this stays display:none so the
+    // bottom tab bar is unchanged.
+    el(
+      'div.nav-brand',
+      el('img.nav-brand-icon', { src: '/icons/icon-192.png', alt: '', width: 28, height: 28 }),
+      el('span.nav-brand-text', 'Atreemology')
+    ),
     TABS.map((tab) =>
       el(
         'button.nav-tab',
