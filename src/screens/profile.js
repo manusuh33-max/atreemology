@@ -12,6 +12,11 @@ import { renderJournalList } from '../ui/journalEntry.js';
 const KOFI_URL = 'https://ko-fi.com/atreemology';
 const STRIPE_SUPPORTER_URL = 'https://buy.stripe.com/REPLACE_WITH_YOUR_PAYMENT_LINK';
 
+// Flip to true once both links above are real and PAYMENTS_ENABLED-gated
+// copy/buttons below should go live — see README "Monetization" for what
+// else needs to happen first. Off for now: payment setup is paused.
+const PAYMENTS_ENABLED = false;
+
 const ROADMAP_TIERS = [
   {
     name: 'Foundational Grove',
@@ -151,15 +156,19 @@ function renderSupporterCard(state) {
       'p',
       "Atreemology has no ads, no accounts, and no subscriptions, and it's staying that way. A one-time Supporter purchase unlocks a Golden Grove theme across the whole app and helps fund verifying new root families for the roadmap above."
     ),
-    el(
-      'a.btn.btn-accent.btn-block',
-      { href: STRIPE_SUPPORTER_URL, target: '_blank', rel: 'noopener noreferrer' },
-      icon('gift', 18),
-      'Become a Supporter'
-    ),
+    PAYMENTS_ENABLED
+      ? el(
+          'a.btn.btn-accent.btn-block',
+          { href: STRIPE_SUPPORTER_URL, target: '_blank', rel: 'noopener noreferrer' },
+          icon('gift', 18),
+          'Become a Supporter'
+        )
+      : el('button.btn.btn-accent.btn-block', { disabled: true }, icon('gift', 18), 'Coming soon'),
     el(
       'p.field-hint',
-      "One-time payment, no account needed. Since Atreemology doesn't have accounts, this unlocks on this device only, the same as your progress, so reinstalling or switching devices means it won't carry over automatically."
+      PAYMENTS_ENABLED
+        ? "One-time payment, no account needed. Since Atreemology doesn't have accounts, this unlocks on this device only, the same as your progress, so reinstalling or switching devices means it won't carry over automatically."
+        : "Payment setup is paused for now — check back soon."
     )
   );
 }
@@ -169,10 +178,12 @@ function renderTipJarCard() {
     'div.supporter-card',
     { style: 'margin-top:14px;' },
     el('p', "Prefer a small no-strings tip instead? Buy the forest a coffee on Ko-fi, no perks, just appreciated."),
-    el(
-      'a.btn.btn-secondary.btn-block',
-      { href: KOFI_URL, target: '_blank', rel: 'noopener noreferrer' },
-      'Leave a tip on Ko-fi'
-    )
+    PAYMENTS_ENABLED
+      ? el(
+          'a.btn.btn-secondary.btn-block',
+          { href: KOFI_URL, target: '_blank', rel: 'noopener noreferrer' },
+          'Leave a tip on Ko-fi'
+        )
+      : el('button.btn.btn-secondary.btn-block', { disabled: true }, 'Coming soon')
   );
 }

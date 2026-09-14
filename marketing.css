@@ -120,6 +120,7 @@ p { margin: 0 0 16px; color: var(--color-text-muted); }
 .btn-accent:hover { filter: brightness(0.94); transform: translateY(-1px); box-shadow: var(--shadow-md); }
 .btn-block { display: flex; width: 100%; }
 .btn-lg { padding: 16px 30px; font-size: 16px; }
+.btn:disabled { cursor: default; opacity: 0.55; box-shadow: none; transform: none; background: var(--color-border); color: var(--color-text-faint); filter: none; }
 
 /* ---------- Hero ---------- */
 .hero { padding: 64px 0 40px; }
