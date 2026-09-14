@@ -245,6 +245,15 @@ p { margin: 0 0 16px; color: var(--color-text-muted); }
 .footer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; flex-wrap: wrap; margin-bottom: 24px; }
 .footer-brand img { height: 26px; margin-bottom: 8px; }
 .footer-tagline { font-size: 14px; color: var(--color-text-faint); max-width: 32ch; margin: 0; }
+.footer-social { display: flex; gap: 10px; margin-top: 16px; }
+.footer-social a {
+  display: flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--color-surface-alt); color: var(--color-text-muted);
+  transition: background var(--transition-med), color var(--transition-med);
+}
+.footer-social a:hover { background: var(--color-primary-light); color: var(--color-primary-dark); }
+.footer-social svg { width: 17px; height: 17px; }
 .footer-cols { display: flex; gap: 48px; flex-wrap: wrap; }
 .footer-col h4 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-text-faint); margin: 0 0 10px; }
 .footer-col a { display: block; color: var(--color-text-muted); text-decoration: none; font-size: 14.5px; margin-bottom: 8px; }
