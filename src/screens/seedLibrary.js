@@ -13,13 +13,14 @@ const TIER_RANK = { Beginner: 0, Intermediate: 1, Advanced: 2 };
 export function renderSeedLibrary(container) {
   let query = '';
   let category = 'All';
+  let comingSoonOpen = false;
 
   const view = el(
     'div.screen.seed-library-screen',
     el(
       'header.screen-header',
       el('h1', 'Seed Library'),
-      el('p.screen-sub', `${ROOTS.length} roots verified and ready to grow — the full Foundational Grove`)
+      el('p.screen-sub', `${ROOTS.length} roots verified and ready to grow · ${COMING_SOON_ROOTS.length} more on the roadmap`)
     ),
     el('input.search-input', {
       type: 'search',
@@ -44,21 +45,50 @@ export function renderSeedLibrary(container) {
       )
     ),
     el('div.root-card-grid#seed-library-grid'),
-    // Deliberately a plain, non-interactive, greyed-out note — no per-root
-    // names/meanings/origins for anything beyond the Foundational Grove.
-    // This app's free tier is scoped to exactly these roots; future roots
-    // aren't previewable, only their existence and count are.
     el(
-      'section.coming-soon-section.coming-soon-locked',
+      'section.coming-soon-section',
       el(
-        'div.coming-soon-lock-note',
-        el('span.coming-soon-lock-icon', '🔒'),
-        el('span', `${COMING_SOON_ROOTS.length}+ more root families are on the roadmap for future updates`)
-      )
+        'button.coming-soon-toggle',
+        {
+          onClick: (e) => {
+            comingSoonOpen = !comingSoonOpen;
+            renderComingSoon();
+          },
+        },
+        `On the roadmap: ${COMING_SOON_ROOTS.length} more root families`,
+        el('span.coming-soon-caret', comingSoonOpen ? '▲' : '▼')
+      ),
+      el('div#coming-soon-list')
     )
   );
 
   const grid = view.querySelector('#seed-library-grid');
+  const comingSoonList = view.querySelector('#coming-soon-list');
+  const comingSoonToggle = view.querySelector('.coming-soon-toggle');
+
+  function renderComingSoon() {
+    comingSoonToggle.querySelector('.coming-soon-caret').textContent = comingSoonOpen ? '▲' : '▼';
+    clear(comingSoonList);
+    if (!comingSoonOpen) return;
+    comingSoonList.appendChild(
+      el(
+        'p.coming-soon-note',
+        'These roots are on the plan but not yet hand-verified word by word — so they\'re shown here for scope, not plantable yet.'
+      )
+    );
+    comingSoonList.appendChild(
+      el(
+        'div.coming-soon-grid',
+        COMING_SOON_ROOTS.map((r) =>
+          el(
+            'div.coming-soon-chip',
+            el('strong', r.title),
+            el('span', `"${r.meaning}" — ${r.origin}`)
+          )
+        )
+      )
+    );
+  }
 
   // Cards used to render in the dataset's original authoring order, so a
   // locked "Advanced" root could sit right next to an unlocked "Beginner"
@@ -119,5 +149,6 @@ export function renderSeedLibrary(container) {
   }
 
   renderList();
+  renderComingSoon();
   mount(container, view);
 }
