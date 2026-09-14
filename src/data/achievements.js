@@ -1,4 +1,4 @@
-// Etymon — cross-forest milestone badges. These sit alongside the per-root
+// Atreemology — cross-forest milestone badges. These sit alongside the per-root
 // cosmetic rewards: rewards celebrate finishing one tree, achievements
 // celebrate the shape of the whole forest over time.
 

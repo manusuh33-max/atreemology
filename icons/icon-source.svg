@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect x="0" y="0" width="100" height="100" rx="22" fill="#1e4a34"/>
+  <!-- ground line -->
+  <line x1="14" y1="58" x2="86" y2="58" stroke="#3a4434" stroke-width="1.5" stroke-dasharray="2 4" opacity="0.6"/>
+  <!-- roots, below ground: fanning taproots with rounded tips, echoing the in-app tree component -->
+  <path d="M50 58 L50 70 M50 66 L38 80 M50 66 L62 80 M50 70 L50 84" stroke="#dcefe0" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.9"/>
+  <circle cx="38" cy="80" r="3.2" fill="#dcefe0"/>
+  <circle cx="62" cy="80" r="3.2" fill="#dcefe0"/>
+  <circle cx="50" cy="84" r="3.2" fill="#dcefe0"/>
+  <!-- trunk, above ground -->
+  <path d="M46 58 C45 48, 45 40, 47 32 L53 32 C55 40, 55 48, 54 58 Z" fill="#7c5b43"/>
+  <!-- canopy: layered rounded lobes, above ground -->
+  <circle cx="50" cy="26" r="19" fill="#3fa06a"/>
+  <circle cx="35" cy="34" r="13" fill="#4fb87e"/>
+  <circle cx="65" cy="34" r="13" fill="#4fb87e"/>
+</svg>

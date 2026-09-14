@@ -1,4 +1,4 @@
-// Etymon — spaced repetition + growth-stage logic
+// Atreemology — spaced repetition + growth-stage logic
 // A deliberately simple, transparent scheduler (v1, matches the product brief):
 //   again  -> due tomorrow,   mastery -15
 //   hard   -> due in 3 days,  mastery  +5

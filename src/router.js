@@ -1,4 +1,4 @@
-// Etymon — tiny hash router. No dependency, works over file:// or a static server.
+// Atreemology — tiny hash router. No dependency, works over file:// or a static server.
 
 const listeners = new Set();
 

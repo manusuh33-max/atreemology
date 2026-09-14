@@ -1,4 +1,4 @@
-// Etymon — the interactive root tree. An explanatory map, not decoration.
+// Atreemology — the interactive root tree. An explanatory map, not decoration.
 // Below ground there is exactly one thing: the root itself — the bound
 // morpheme (e.g. "spect") that cannot stand alone as a word, drawn as a
 // single taproot converging on one labeled point. It has no words attached

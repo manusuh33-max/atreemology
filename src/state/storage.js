@@ -1,11 +1,11 @@
-// Etymon — persistence layer
+// Atreemology — persistence layer
 // Everything lives under one localStorage key so it is easy to inspect,
 // export, or later swap for a real backend (see README "next steps").
 
 import { ROOTS } from '../data/roots.js';
 import { todayStr } from './srs.js';
 
-export const STORAGE_KEY = 'etymon:v1:state';
+export const STORAGE_KEY = 'atreemology:v1:state';
 
 function defaultState() {
   return {
@@ -113,9 +113,9 @@ export function touchStreak(state) {
 /** Download the raw progress state as a JSON file the learner can keep. */
 export async function exportProgress(state) {
   if (typeof document === 'undefined') return;
-  const payload = { app: 'Etymon', exportedAt: new Date().toISOString(), state };
+  const payload = { app: 'Atreemology', exportedAt: new Date().toISOString(), state };
   const json = JSON.stringify(payload, null, 2);
-  const filename = `etymon-progress-${todayStr()}.json`;
+  const filename = `atreemology-progress-${todayStr()}.json`;
 
   // Inside a claude.ai Artifact preview, a plain anchor download does
   // nothing (the sandbox blocks it) — offer the file through the

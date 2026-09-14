@@ -1,4 +1,4 @@
-// Etymon — the rest of the roadmap.
+// Atreemology — the rest of the roadmap.
 //
 // These roots are not planted, and never contribute quiz or lesson content
 // yet — they're the "coming soon" shelf of the Seed Library, showing the

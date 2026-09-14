@@ -1,4 +1,4 @@
-// Etymon — minimal hyperscript helper.
+// Atreemology — minimal hyperscript helper.
 // el('button.btn', { onClick: fn, 'aria-label': 'Water tree' }, 'Water')
 // Keeps every "component" a plain function that returns a real DOM node —
 // no virtual DOM, no build step, no framework to install.

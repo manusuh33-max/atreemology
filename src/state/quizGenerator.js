@@ -1,4 +1,4 @@
-// Etymon — builds a short, varied quiz from a learner's due/learned words.
+// Atreemology — builds a short, varied quiz from a learner's due/learned words.
 
 import { ROOTS, getRoot, rootWordOrder } from '../data/roots.js';
 import { getWord, WORDS } from '../data/words.js';

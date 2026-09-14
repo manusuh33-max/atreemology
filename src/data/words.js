@@ -1,4 +1,4 @@
-// Etymon — Word data
+// Atreemology — Word data
 // level: 'connector' | 'common' | 'advanced' (matches LearnerRootProgress stages)
 
 /**

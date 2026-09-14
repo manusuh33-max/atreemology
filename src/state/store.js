@@ -1,4 +1,4 @@
-// Etymon — tiny app store: load -> mutate -> save -> notify.
+// Atreemology — tiny app store: load -> mutate -> save -> notify.
 // No framework needed at this scale; every screen re-renders itself on 'change'.
 
 import { loadState, saveState, ensurePlanted, touchStreak, addJournalEntry, resetState } from './storage.js';

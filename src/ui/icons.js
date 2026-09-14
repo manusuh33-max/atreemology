@@ -1,4 +1,4 @@
-// Etymon — small inline SVG icons. No icon font, no CDN, no dependency.
+// Atreemology — small inline SVG icons. No icon font, no CDN, no dependency.
 // Each function returns raw SVG markup sized to currentColor so it inherits text color.
 
 function svg(paths, viewBox = '0 0 24 24') {

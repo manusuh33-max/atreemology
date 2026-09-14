@@ -1,4 +1,4 @@
-// Etymon — Root Family data
+// Atreemology — Root Family data
 // Every etymology below reflects standard, well-attested Latin derivations.
 // Where a word's history is genuinely disputed or merely a spelling
 // coincidence, it is left out rather than implied. See README for sourcing notes.

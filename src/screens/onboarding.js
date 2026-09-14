@@ -6,7 +6,7 @@ import { navigate } from '../router.js';
 const STEPS = [
   {
     title: 'Grow your own vocabulary forest',
-    body: "Etymon teaches English roots like real plants: a seed becomes a root, a root becomes a tree, and a tree becomes a whole forest of words you'll actually remember.",
+    body: "Atreemology teaches English roots like real plants: a seed becomes a root, a root becomes a tree, and a tree becomes a whole forest of words you'll actually remember.",
     art: '🌱',
   },
   {

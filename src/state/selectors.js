@@ -1,4 +1,4 @@
-// Etymon — derived/computed views over the store's raw state.
+// Atreemology — derived/computed views over the store's raw state.
 
 import { ROOTS, getRoot, rootWordOrder } from '../data/roots.js';
 import { dueWordsForRoot, rootMastery, treeHealth } from './srs.js';

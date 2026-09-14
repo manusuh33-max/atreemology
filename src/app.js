@@ -20,7 +20,7 @@ const TAB_FOR_ROUTE = { home: 'home', seeds: 'seeds', forest: 'forest', root: 'f
 // renderCrashScreen() is the last-resort fallback: it never depends on
 // app state, so it can render even when the state itself is what broke.
 function renderCrashScreen(main, error) {
-  console.error('Etymon crashed while rendering:', error);
+  console.error('Atreemology crashed while rendering:', error);
   clear(main);
   main.appendChild(
     el(
@@ -28,7 +28,7 @@ function renderCrashScreen(main, error) {
       el('div.crash-icon', '🌱'),
       el('h1', 'Something went wrong'),
       el('p', "This page hit a snag and couldn't load. Your saved progress is untouched — reloading usually fixes it."),
-      el('button.btn.btn-primary.btn-block', { onClick: () => window.location.reload() }, 'Reload Etymon'),
+      el('button.btn.btn-primary.btn-block', { onClick: () => window.location.reload() }, 'Reload Atreemology'),
       el(
         'button.btn.btn-ghost.btn-block',
         {
