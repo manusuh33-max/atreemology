@@ -8,6 +8,8 @@ import { COMING_SOON_ROOTS } from '../data/comingSoonRoots.js';
 import { renderJournalList } from '../ui/journalEntry.js';
 import { startTour } from '../tour.js';
 
+const CLOUD_ON = Boolean(window.__ATREEMOLOGY__ && window.__ATREEMOLOGY__.supabaseUrl);
+
 // Set these once real pages exist — see README "Supporting the project" for
 // exactly what to create and where these two values come from.
 const KOFI_URL = 'https://ko-fi.com/atreemology';
@@ -74,6 +76,8 @@ export function renderProfile(container) {
       statBlock('Current streak', state.streak.current),
       statBlock('Longest streak', state.streak.longest)
     ),
+    // Filled in by src/cloud/ui.js when accounts are switched on; empty otherwise.
+    CLOUD_ON ? el('section.home-section#cloud-account-slot') : null,
     el(
       'section.home-section',
       el('h2', 'New here?'),
@@ -109,7 +113,9 @@ export function renderProfile(container) {
       'section.danger-zone',
       el(
         'p.field-hint',
-        'Your forest is saved only on this device — clearing browser data or switching phones starts over. Export a backup now and then.'
+        CLOUD_ON
+          ? 'Signed out, your forest is saved only on this device. Signing in above keeps a copy in the cloud. Exporting a backup now and then is still a good idea.'
+          : 'Your forest is saved only on this device — clearing browser data or switching phones starts over. Export a backup now and then.'
       ),
       el('button.btn.btn-secondary.btn-block', { onClick: () => exportProgress(getState()) }, icon('book', 18), 'Export my progress'),
       el('button.btn.btn-ghost.btn-danger', { onClick: onResetClick }, 'Reset all progress')
@@ -118,11 +124,32 @@ export function renderProfile(container) {
 
   mount(container, view);
 
+  // When signed in, the cloud copy is cleared first. If that fails the reset is
+  // abandoned, because otherwise the old progress would merge straight back in.
+  async function resetEverywhere(btn) {
+    btn.disabled = true;
+    if (CLOUD_ON) {
+      try {
+        const sync = await import('../cloud/sync.js?v=1');
+        const ok = await sync.resetCloudCopy();
+        if (!ok) {
+          btn.disabled = false;
+          btn.dataset.confirm = '0';
+          btn.textContent = "Couldn't clear your cloud copy — check your connection and try again";
+          return;
+        }
+      } catch {
+        /* cloud code unavailable: nothing in the cloud to clear from here */
+      }
+    }
+    resetAllProgress();
+    renderProfile(container);
+  }
+
   function onResetClick(e) {
     const btn = e.currentTarget;
     if (btn.dataset.confirm === '1') {
-      resetAllProgress();
-      renderProfile(container);
+      resetEverywhere(btn);
       return;
     }
     btn.dataset.confirm = '1';
@@ -161,7 +188,7 @@ function renderSupporterCard(state) {
     'div.supporter-card',
     el(
       'p',
-      "Atreemology has no ads, no accounts, and no subscriptions, and it's staying that way. A one-time Supporter purchase unlocks a Golden Grove theme across the whole app and helps fund verifying new root families for the roadmap above."
+      (CLOUD_ON ? "Atreemology has no ads and no subscriptions, and it's staying that way. An account is optional. " : "Atreemology has no ads, no accounts, and no subscriptions, and it's staying that way. ") + "A one-time Supporter purchase unlocks a Golden Grove theme across the whole app and helps fund verifying new root families for the roadmap above."
     ),
     PAYMENTS_ENABLED
       ? el(
@@ -174,7 +201,7 @@ function renderSupporterCard(state) {
     el(
       'p.field-hint',
       PAYMENTS_ENABLED
-        ? "One-time payment, no account needed. Since Atreemology doesn't have accounts, this unlocks on this device only, the same as your progress, so reinstalling or switching devices means it won't carry over automatically."
+        ? "One-time payment, no account needed. The Golden Grove theme unlocks on this device only, so reinstalling or switching devices means it won't carry over automatically."
         : "Payment setup is paused for now — check back soon."
     )
   );

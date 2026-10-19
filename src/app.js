@@ -10,12 +10,12 @@ import { maybeStartTour } from './tour.js';
 // URL. Bump a screen's number whenever that file changes.
 import { renderOnboarding } from './screens/onboarding.js?v=2';
 import { renderHome } from './screens/home.js';
-import { renderSeedLibrary } from './screens/seedLibrary.js';
+import { renderSeedLibrary } from './screens/seedLibrary.js?v=2';
 import { renderForest } from './screens/forest.js';
 import { renderRootDetail } from './screens/rootDetail.js';
 import { renderQuiz } from './screens/quiz.js';
 import { renderRewards } from './screens/rewards.js';
-import { renderProfile } from './screens/profile.js?v=2';
+import { renderProfile } from './screens/profile.js?v=3';
 
 const TAB_FOR_ROUTE = { home: 'home', seeds: 'seeds', forest: 'forest', root: 'forest', rewards: 'rewards', profile: 'profile', quiz: 'home' };
 
@@ -116,6 +116,16 @@ export function boot(root) {
       }
       main.scrollTo({ top: 0 });
 
+      // Optional account / cloud-pack sections. Only present when cloud
+      // features are configured; a failure here never affects the screen.
+      if (cloudUi) {
+        try {
+          cloudUi.decorateRoute(route, main);
+        } catch (err) {
+          console.warn('cloud ui skipped:', err);
+        }
+      }
+
       // First-run walkthrough: starts once, right after the first seed is
       // planted (tour.js decides; this is a no-op on every other render).
       maybeStartTour();
@@ -130,6 +140,17 @@ export function boot(root) {
   // console with a stuck UI.
   window.addEventListener('error', (e) => renderCrashScreen(main, e.error || e.message));
   window.addEventListener('unhandledrejection', (e) => renderCrashScreen(main, e.reason));
+
+  // Loaded on the side, never awaited: the app is usable before (or without) it.
+  let cloudUi = null;
+  if (window.__ATREEMOLOGY__ && window.__ATREEMOLOGY__.supabaseUrl) {
+    import('./cloud/ui.js?v=1')
+      .then((m) => {
+        cloudUi = m;
+        render();
+      })
+      .catch((err) => console.warn('Cloud UI unavailable:', err));
+  }
 
   subscribe(render);
   onRouteChange(render);

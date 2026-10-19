@@ -7,10 +7,11 @@ import { isRootUnlocked } from '../state/selectors.js';
 import { isPlanted } from '../state/storage.js';
 import { navigate } from '../router.js';
 
-const CATEGORIES = ['All', ...new Set(ROOTS.map((r) => r.category))];
 const TIER_RANK = { Beginner: 0, Intermediate: 1, Advanced: 2 };
 
 export function renderSeedLibrary(container) {
+  // Computed per render (not at import) so roots from unlocked packs get their chips.
+  const CATEGORIES = ['All', ...new Set(ROOTS.map((r) => r.category))];
   let query = '';
   let category = 'All';
   let comingSoonOpen = false;

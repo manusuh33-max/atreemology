@@ -45,6 +45,18 @@
   <div id="root"></div>
   <!-- ?v= busts the CDN's cached copy of main.js (and, through it, app.js).
        Bump on every change to main.js. -->
-  <script type="module" src="/src/main.js?v=2"></script>
+  <script>
+    // Public settings for the optional account / cloud features. The key below is
+    // the project's public "anon" key: it only identifies the project, and what a
+    // visitor can do is limited by the database rules (row-level security). Leave
+    // supabaseUrl empty to switch every cloud feature off.
+    window.__ATREEMOLOGY__ = {
+      supabaseUrl: 'https://yvgtixodtwrfsehkqsfi.supabase.co',
+      supabaseAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl2Z3RpeG9kdHdyZnNlaGtxc2ZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIzODc5ODEsImV4cCI6MjEwNzk2Mzk4MX0.2kPFJIpkKx2Z-E-vydaSh5PRTVH-oarQQy54_mIRA1U',
+      googleEnabled: false,
+      usdEnabled: false
+    };
+  </script>
+  <script type="module" src="/src/main.js?v=3"></script>
 </body>
 </html>
