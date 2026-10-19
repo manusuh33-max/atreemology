@@ -2,15 +2,20 @@ import { el, mount, clear } from './ui/dom.js';
 import { renderBottomNav } from './ui/bottomNav.js';
 import { getState, subscribe, unlockSupporter } from './state/store.js';
 import { onRouteChange, parseHash, navigate } from './router.js';
+import { maybeStartTour } from './tour.js';
 
-import { renderOnboarding } from './screens/onboarding.js';
+// The ?v= on a screen import is a cache-buster (see README "CDN caching"):
+// Hostinger's CDN caches static files for up to 7 days by exact URL, and module
+// imports are fetched by URL, so a changed module must be imported under a new
+// URL. Bump a screen's number whenever that file changes.
+import { renderOnboarding } from './screens/onboarding.js?v=2';
 import { renderHome } from './screens/home.js';
 import { renderSeedLibrary } from './screens/seedLibrary.js';
 import { renderForest } from './screens/forest.js';
 import { renderRootDetail } from './screens/rootDetail.js';
 import { renderQuiz } from './screens/quiz.js';
 import { renderRewards } from './screens/rewards.js';
-import { renderProfile } from './screens/profile.js';
+import { renderProfile } from './screens/profile.js?v=2';
 
 const TAB_FOR_ROUTE = { home: 'home', seeds: 'seeds', forest: 'forest', root: 'forest', rewards: 'rewards', profile: 'profile', quiz: 'home' };
 
@@ -110,6 +115,10 @@ export function boot(root) {
           renderHome(main);
       }
       main.scrollTo({ top: 0 });
+
+      // First-run walkthrough: starts once, right after the first seed is
+      // planted (tour.js decides; this is a no-op on every other render).
+      maybeStartTour();
     } catch (error) {
       renderCrashScreen(main, error);
     }

@@ -6,6 +6,7 @@ import { exportProgress } from '../state/storage.js';
 import { ROOTS } from '../data/roots.js';
 import { COMING_SOON_ROOTS } from '../data/comingSoonRoots.js';
 import { renderJournalList } from '../ui/journalEntry.js';
+import { startTour } from '../tour.js';
 
 // Set these once real pages exist — see README "Supporting the project" for
 // exactly what to create and where these two values come from.
@@ -72,6 +73,12 @@ export function renderProfile(container) {
       statBlock('Total reviews', state.stats.totalReviews),
       statBlock('Current streak', state.streak.current),
       statBlock('Longest streak', state.streak.longest)
+    ),
+    el(
+      'section.home-section',
+      el('h2', 'New here?'),
+      el('p.field-hint', 'A 30-second walkthrough of the five pages and what each one is for.'),
+      el('button.btn.btn-secondary.btn-block', { type: 'button', onClick: () => startTour() }, icon('compass', 18), 'Take the app tour')
     ),
     el(
       'section.home-section',

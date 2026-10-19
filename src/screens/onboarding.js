@@ -2,6 +2,7 @@ import { el, mount } from '../ui/dom.js';
 import { ROOTS } from '../data/roots.js';
 import { completeOnboarding, plantSeed } from '../state/store.js';
 import { navigate } from '../router.js';
+import { markTourPending } from '../tour.js';
 
 const STEPS = [
   {
@@ -97,6 +98,10 @@ export function renderOnboarding(container) {
         'button.btn.btn-primary.btn-block',
         {
           onClick: () => {
+            // Queue the short page-by-page tour (tour.js) to start once the
+            // first lesson has drawn. Set before completeOnboarding so the
+            // very first post-onboarding render already sees it.
+            markTourPending();
             completeOnboarding(name.trim());
             plantSeed(selected);
             navigate(`#/root/${selected}`);

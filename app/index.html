@@ -43,6 +43,8 @@
 </head>
 <body>
   <div id="root"></div>
-  <script type="module" src="/src/main.js"></script>
+  <!-- ?v= busts the CDN's cached copy of main.js (and, through it, app.js).
+       Bump on every change to main.js. -->
+  <script type="module" src="/src/main.js?v=2"></script>
 </body>
 </html>
