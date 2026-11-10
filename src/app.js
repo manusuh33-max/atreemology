@@ -10,7 +10,7 @@ import { maybeStartTour } from './tour.js';
 // URL. Bump a screen's number whenever that file changes.
 import { renderOnboarding } from './screens/onboarding.js?v=3';
 import { renderHome } from './screens/home.js';
-import { renderSeedLibrary } from './screens/seedLibrary.js?v=2';
+import { renderSeedLibrary } from './screens/seedLibrary.js?v=3';
 import { renderForest } from './screens/forest.js';
 import { renderRootDetail } from './screens/rootDetail.js';
 import { renderQuiz } from './screens/quiz.js';
