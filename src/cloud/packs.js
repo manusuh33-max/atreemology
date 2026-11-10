@@ -12,8 +12,8 @@
 //   { "roots": [ <RootFamily as in data/roots.js> ... ],
 //     "words": { "<wordId>": <Word as in data/words.js>, ... } }
 
-import { cloudEnabled, KEYS, lsGet } from './config.js?v=1';
-import { api, currentUser, isSignedIn, onSessionChange } from './session.js?v=1';
+import { cloudEnabled, KEYS, lsGet } from './config.js?v=3';
+import { api, currentUser, isSignedIn, onSessionChange } from './session.js?v=3';
 import { ROOTS, ROOTS_BY_ID } from '../data/roots.js';
 import { WORDS } from '../data/words.js';
 

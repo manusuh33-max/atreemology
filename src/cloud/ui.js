@@ -8,7 +8,7 @@
 
 import { el } from '../ui/dom.js';
 import { icon } from '../ui/icons.js';
-import { CLOUD, cloudEnabled } from './config.js?v=1';
+import { CLOUD, cloudEnabled } from './config.js?v=3';
 import {
   isSignedIn,
   currentUser,
@@ -17,10 +17,10 @@ import {
   verifyEmailCode,
   signOut,
   googleSignInUrl,
-} from './session.js?v=1';
-import { getSyncStatus, onSyncStatus, pushNow, syncAfterSignIn, deleteAccount, markFlash } from './sync.js?v=1';
-import { getPackView, onPacksChange, refreshPacks } from './packs.js?v=1';
-import { purchasePack } from './checkout.js?v=1';
+} from './session.js?v=3';
+import { getSyncStatus, onSyncStatus, pushNow, syncAfterSignIn, deleteAccount, markFlash } from './sync.js?v=3';
+import { getPackView, onPacksChange, refreshPacks } from './packs.js?v=3';
+import { purchasePack } from './checkout.js?v=3';
 
 // ---------- styles (injected, so the cached styles.css never needs to change) ----------
 
@@ -126,7 +126,7 @@ const ERROR_TEXT = {
  * `reason` is a short line shown at the top; `onDone` runs after a successful sign-in
  * (not when the page has to reload to pick up newer progress).
  */
-export function openSignInSheet({ reason, onDone } = {}) {
+export function openSignInSheet({ reason, onDone, returning = false } = {}) {
   if (!cloudEnabled()) return;
   openSheet((sheet, close) => {
     let email = '';
@@ -173,8 +173,8 @@ export function openSignInSheet({ reason, onDone } = {}) {
 
       body.replaceChildren(
         ...[
-        el('h2.sheet-word', { style: 'text-transform:none' }, 'Sign in or create an account'),
-        el('p.sheet-definition', reason || 'Keep your forest safe in the cloud and pick it up on any device. It’s free.'),
+        el('h2.sheet-word', { style: 'text-transform:none' }, returning ? 'Welcome back' : 'Sign in or create an account'),
+        el('p.sheet-definition', reason || (returning ? 'Sign in with the email you used before and we’ll bring your forest back, right where you left off.' : 'Keep your forest safe in the cloud and pick it up on any device. It’s free.')),
         el('label.field-label', 'Email', input),
         err,
         send,
@@ -240,7 +240,13 @@ export function openSignInSheet({ reason, onDone } = {}) {
         const sync = await syncAfterSignIn();
         stop();
         if (sync.reload) {
-          markFlash('Signed in. Your saved progress has been loaded.');
+          markFlash(returning ? 'Welcome back! Your forest is right where you left it.' : 'Signed in. Your saved progress has been loaded.');
+          // Someone returning with saved progress doesn't need the first-run tour again.
+          try {
+            localStorage.setItem('atreemology:v1:tour', 'done');
+          } catch {
+            /* ignore */
+          }
           location.reload();
           return;
         }
@@ -272,7 +278,7 @@ export function openSignInSheet({ reason, onDone } = {}) {
 
       body.replaceChildren(
         el('h2.sheet-word', { style: 'text-transform:none' }, 'Check your email'),
-        el('p.sheet-definition', `We sent a code to ${email}. It can take a minute, and it may land in spam.`),
+        el('p.sheet-definition', `We sent an email to ${email}. Type the 6-digit code from it below. It can take a minute, and it may land in spam. If the email has a sign-in link instead of a code, tap that link on this device.`),
         el('label.field-label', 'Code', input),
         err,
         go,

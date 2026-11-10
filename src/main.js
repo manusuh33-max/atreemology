@@ -10,14 +10,14 @@
 (async () => {
   let cloud = null;
   try {
-    cloud = await import('./cloud/boot.js?v=1');
+    cloud = await import('./cloud/boot.js?v=3');
     await cloud.prepareCloud();
   } catch (err) {
     console.warn('Cloud features skipped:', err);
     cloud = null;
   }
 
-  const { boot } = await import('./app.js?v=3');
+  const { boot } = await import('./app.js?v=5');
   boot(document.getElementById('root'));
 
   try {

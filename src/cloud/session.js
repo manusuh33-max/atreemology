@@ -6,7 +6,7 @@
 // different one from the installed app, and the app's own #/ routing would
 // also collide with the tokens a link puts in the URL fragment.
 
-import { CLOUD, KEYS, cloudEnabled, lsGet, lsSet, lsRemove } from './config.js?v=1';
+import { CLOUD, KEYS, cloudEnabled, lsGet, lsSet, lsRemove } from './config.js?v=3';
 
 export class CloudError extends Error {
   constructor(code, message) {
@@ -164,7 +164,9 @@ export async function requestEmailCode(email) {
   const clean = String(email || '').trim().toLowerCase();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean)) return { ok: false, reason: 'invalid-email' };
   try {
-    const res = await fetch(`${CLOUD.url}/auth/v1/otp`, {
+    // If the email only contains a link (no code), the link brings the learner back to this page.
+    const back = typeof location !== 'undefined' ? `${location.origin}${location.pathname}` : '';
+    const res = await fetch(`${CLOUD.url}/auth/v1/otp${back ? `?redirect_to=${encodeURIComponent(back)}` : ''}`, {
       method: 'POST',
       headers: { apikey: CLOUD.anonKey, 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: clean, create_user: true }),

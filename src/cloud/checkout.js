@@ -4,8 +4,8 @@
 // only asks for an order, shows Razorpay's own payment window, then hands the
 // signed result back for verification. Nothing here can grant access by itself.
 
-import { api, isSignedIn } from './session.js?v=1';
-import { refreshPacks } from './packs.js?v=1';
+import { api, isSignedIn } from './session.js?v=3';
+import { refreshPacks } from './packs.js?v=3';
 
 const CHECKOUT_SRC = 'https://checkout.razorpay.com/v1/checkout.js';
 

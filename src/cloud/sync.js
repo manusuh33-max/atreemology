@@ -12,9 +12,9 @@
 //   on sign-in            -> syncAfterSignIn(): merge both ways; reload once if the
 //                            device picked up new progress.
 
-import { KEYS, cloudEnabled, lsGet, lsSet, lsRemove } from './config.js?v=1';
-import { api, currentUser, isSignedIn, onSessionChange, clearSessionLocally } from './session.js?v=1';
-import { mergeStates, statesEqual, isValidState, normalizeState } from './merge.js?v=1';
+import { KEYS, cloudEnabled, lsGet, lsSet, lsRemove } from './config.js?v=3';
+import { api, currentUser, isSignedIn, onSessionChange, clearSessionLocally } from './session.js?v=3';
+import { mergeStates, statesEqual, isValidState, normalizeState } from './merge.js?v=3';
 
 // ---- small persisted bookkeeping: when we last synced and whether changes are waiting ----
 

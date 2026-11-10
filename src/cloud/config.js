@@ -4,7 +4,7 @@
 // filled in (see app/index.html), cloudEnabled() is false and the app behaves
 // exactly as it did before — local-only, no account, no network calls.
 //
-// Cache note: every import between cloud files uses the same `?v=1` suffix so
+// Cache note: every import between cloud files uses the same `?v=3` suffix so
 // each module is loaded once under one URL. To ship a change to any cloud file,
 // bump that suffix everywhere (README "CDN caching" has a one-line command).
 

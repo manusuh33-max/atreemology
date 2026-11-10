@@ -4,6 +4,32 @@ import { completeOnboarding, plantSeed } from '../state/store.js';
 import { navigate } from '../router.js';
 import { markTourPending } from '../tour.js';
 
+// Only shown when accounts are switched on (see app/index.html).
+const CLOUD_ON = Boolean(window.__ATREEMOLOGY__ && window.__ATREEMOLOGY__.supabaseUrl);
+
+/** "I already have an account": sign in right here, skipping the intro, the first seed and the tour. */
+async function openReturningSignIn() {
+  try {
+    const ui = await import('../cloud/ui.js?v=3');
+    ui.openSignInSheet({
+      returning: true,
+      // Reached only when the account has no saved forest yet; with one, the page reloads straight into the app.
+      onDone: () => ui.showToast('Signed in. This account has no saved forest yet, so let’s plant your first seed.'),
+    });
+  } catch {
+    /* offline or blocked: the intro carries on as normal */
+  }
+}
+
+function returningButton() {
+  if (!CLOUD_ON) return null;
+  return el(
+    'button.btn.btn-ghost.btn-block.onboarding-signin',
+    { type: 'button', style: 'margin-top:14px', onClick: openReturningSignIn },
+    'I already have an account · Sign in'
+  );
+}
+
 const STEPS = [
   {
     title: 'Grow your own vocabulary forest',
@@ -54,7 +80,8 @@ export function renderOnboarding(container) {
         'div.onboarding-actions',
         step > 0 ? el('button.btn.btn-ghost', { onClick: () => { step -= 1; render(); } }, 'Back') : el('span'),
         el('button.btn.btn-primary', { onClick: () => { step += 1; render(); } }, step === STEPS.length - 1 ? "Let's go" : 'Next')
-      )
+      ),
+      returningButton()
     );
   }
 
@@ -108,7 +135,8 @@ export function renderOnboarding(container) {
           },
         },
         'Plant my first seed'
-      )
+      ),
+      returningButton()
     );
   }
 

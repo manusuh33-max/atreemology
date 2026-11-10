@@ -130,7 +130,7 @@ export function renderProfile(container) {
     btn.disabled = true;
     if (CLOUD_ON) {
       try {
-        const sync = await import('../cloud/sync.js?v=1');
+        const sync = await import('../cloud/sync.js?v=3');
         const ok = await sync.resetCloudCopy();
         if (!ok) {
           btn.disabled = false;

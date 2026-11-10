@@ -8,14 +8,14 @@ import { maybeStartTour } from './tour.js';
 // Hostinger's CDN caches static files for up to 7 days by exact URL, and module
 // imports are fetched by URL, so a changed module must be imported under a new
 // URL. Bump a screen's number whenever that file changes.
-import { renderOnboarding } from './screens/onboarding.js?v=2';
+import { renderOnboarding } from './screens/onboarding.js?v=3';
 import { renderHome } from './screens/home.js';
 import { renderSeedLibrary } from './screens/seedLibrary.js?v=2';
 import { renderForest } from './screens/forest.js';
 import { renderRootDetail } from './screens/rootDetail.js';
 import { renderQuiz } from './screens/quiz.js';
 import { renderRewards } from './screens/rewards.js';
-import { renderProfile } from './screens/profile.js?v=3';
+import { renderProfile } from './screens/profile.js?v=5';
 
 const TAB_FOR_ROUTE = { home: 'home', seeds: 'seeds', forest: 'forest', root: 'forest', rewards: 'rewards', profile: 'profile', quiz: 'home' };
 
@@ -144,7 +144,7 @@ export function boot(root) {
   // Loaded on the side, never awaited: the app is usable before (or without) it.
   let cloudUi = null;
   if (window.__ATREEMOLOGY__ && window.__ATREEMOLOGY__.supabaseUrl) {
-    import('./cloud/ui.js?v=1')
+    import('./cloud/ui.js?v=3')
       .then((m) => {
         cloudUi = m;
         render();
