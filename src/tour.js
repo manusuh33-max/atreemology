@@ -45,7 +45,7 @@ export function markTourPending() {
   writeFlag('pending');
 }
 
-// `tab` is the index of the nav tab to spotlight (Home, Seeds, Forest,
+// `tab` is the index of the nav tab to spotlight (Home, Seeds,
 // Rewards, Profile — same order as TABS in ui/bottomNav.js). Steps without a
 // tab are centered cards.
 const STEPS = [
@@ -53,15 +53,15 @@ const STEPS = [
     kind: 'intro',
     art: '🧭',
     title: 'A 30-second tour',
-    body: 'Atreemology has five pages, always one tap away. Let’s take a quick look at what each one is for.',
+    body: 'Atreemology has four pages, always one tap away. Let’s take a quick look at what each one is for.',
     next: 'Start the tour',
   },
   {
     tab: 0,
     route: '#/home',
     icon: 'home',
-    title: 'Home: your daily starting point',
-    body: 'See your streak and forest stats, plus one big button that always tells you what to do next: tend the words that are due, or keep growing a tree.',
+    title: 'Home: your forest and your next step',
+    body: 'Your whole forest lives here. Tap a tree to open its words; a word built from two roots shows up as a branch linking both trees. Below it, one big button tells you what to do next.',
   },
   {
     tab: 1,
@@ -72,20 +72,13 @@ const STEPS = [
   },
   {
     tab: 2,
-    route: '#/forest',
-    icon: 'forest',
-    title: 'Forest: everything you’ve grown',
-    body: 'Every tree you plant lives here. Tap one to open its words. A word built from two roots shows up as a branch linking both trees.',
-  },
-  {
-    tab: 3,
     route: '#/rewards',
     icon: 'reward',
     title: 'Rewards: your milestones',
     body: 'Finish a tree to earn its reward. Your streak and milestone badges live here too.',
   },
   {
-    tab: 4,
+    tab: 3,
     route: '#/profile',
     icon: 'profile',
     title: 'Profile: settings and progress',

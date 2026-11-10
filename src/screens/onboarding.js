@@ -2,7 +2,7 @@ import { el, mount } from '../ui/dom.js';
 import { ROOTS } from '../data/roots.js';
 import { completeOnboarding, plantSeed } from '../state/store.js';
 import { navigate } from '../router.js';
-import { markTourPending } from '../tour.js';
+import { markTourPending } from '../tour.js?v=2';
 
 // Only shown when accounts are switched on (see app/index.html).
 const CLOUD_ON = Boolean(window.__ATREEMOLOGY__ && window.__ATREEMOLOGY__.supabaseUrl);
@@ -43,7 +43,7 @@ const STEPS = [
   },
   {
     title: 'Some trees grow together',
-    body: "A few words are built from two roots at once — plant both, and that word appears as an actual branch connecting the two trees in your Forest, not just two separate lessons.",
+    body: "A few words are built from two roots at once — plant both, and that word appears as an actual branch connecting the two trees in your forest on Home, not just two separate lessons.",
     art: '🌿',
   },
   {

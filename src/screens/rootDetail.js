@@ -22,7 +22,7 @@ const STAGE_COPY = {
   complete: 'Complete! This tree has fully grown.',
 };
 
-export function renderRootDetail(container, rootId) {
+export function renderRootDetail(container, rootId, backHash = '#/home') {
   const root = getRoot(rootId);
   if (!root) {
     mount(container, el('div.screen', el('p', 'That root could not be found.'), el('button.btn.btn-primary', { onClick: () => navigate('#/seeds') }, 'Back to Seed Library')));
@@ -56,7 +56,7 @@ export function renderRootDetail(container, rootId) {
       'div.screen.root-detail-screen',
       el(
         'header.screen-header',
-        el('button.icon-btn.back-btn', { onClick: () => navigate('#/forest'), 'aria-label': 'Back' }, icon('chevronLeft', 20)),
+        el('button.icon-btn.back-btn', { onClick: () => navigate(backHash), 'aria-label': 'Back' }, icon('chevronLeft', 20)),
         el('h1', root.root),
         el('p.screen-sub', `"${root.meaning}" — ${root.language}`)
       ),

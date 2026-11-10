@@ -17,7 +17,7 @@
     cloud = null;
   }
 
-  const { boot } = await import('./app.js?v=6');
+  const { boot } = await import('./app.js?v=7');
   boot(document.getElementById('root'));
 
   try {

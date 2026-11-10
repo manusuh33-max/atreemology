@@ -39,7 +39,7 @@ export function renderQuiz(container, rootId = null) {
       el(
         'div.screen.quiz-screen',
         el('header.screen-header', el('h1', 'Quiz')),
-        el('div.empty-state', el('div.empty-state-art', '🌱'), el('p', 'Learn a word or two first, then come back to quiz yourself on them.'), el('button.btn.btn-primary', { onClick: () => navigate('#/forest') }, 'Back to forest'))
+        el('div.empty-state', el('div.empty-state-art', '🌱'), el('p', 'Learn a word or two first, then come back to quiz yourself on them.'), el('button.btn.btn-primary', { onClick: () => navigate('#/home') }, 'Back to Home'))
       )
     );
     return;
@@ -103,7 +103,7 @@ export function renderQuiz(container, rootId = null) {
         el(
           'button.btn.btn-primary.btn-block',
           { onClick: () => navigate(rootId ? `#/root/${rootId}` : '#/home') },
-          'Back to the forest'
+          rootId ? 'Back to the tree' : 'Back to Home'
         )
       )
     );

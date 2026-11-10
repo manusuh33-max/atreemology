@@ -1,23 +1,26 @@
 import { el, mount, clear } from './ui/dom.js';
-import { renderBottomNav } from './ui/bottomNav.js';
+import { renderBottomNav } from './ui/bottomNav.js?v=2';
 import { getState, subscribe, unlockSupporter } from './state/store.js';
 import { onRouteChange, parseHash, navigate } from './router.js';
-import { maybeStartTour } from './tour.js';
+import { maybeStartTour } from './tour.js?v=2';
 
 // The ?v= on a screen import is a cache-buster (see README "CDN caching"):
 // Hostinger's CDN caches static files for up to 7 days by exact URL, and module
 // imports are fetched by URL, so a changed module must be imported under a new
 // URL. Bump a screen's number whenever that file changes.
-import { renderOnboarding } from './screens/onboarding.js?v=3';
-import { renderHome } from './screens/home.js';
+import { renderOnboarding } from './screens/onboarding.js?v=4';
+import { renderHome } from './screens/home.js?v=2';
 import { renderSeedLibrary } from './screens/seedLibrary.js?v=3';
-import { renderForest } from './screens/forest.js';
-import { renderRootDetail } from './screens/rootDetail.js';
-import { renderQuiz } from './screens/quiz.js';
+import { renderRootDetail } from './screens/rootDetail.js?v=2';
+import { renderQuiz } from './screens/quiz.js?v=2';
 import { renderRewards } from './screens/rewards.js';
-import { renderProfile } from './screens/profile.js?v=5';
+import { renderProfile } from './screens/profile.js?v=6';
 
-const TAB_FOR_ROUTE = { home: 'home', seeds: 'seeds', forest: 'forest', root: 'forest', rewards: 'rewards', profile: 'profile', quiz: 'home' };
+// The old Forest tab is gone (the forest now lives on Home), so an old
+// #/forest link or bookmark lands on Home. A root page highlights the tab you
+// came from, and its back button returns there.
+const TAB_FOR_ROUTE = { home: 'home', seeds: 'seeds', rewards: 'rewards', profile: 'profile', quiz: 'home' };
+let lastTab = 'home';
 
 // A render bug (a bad data entry, a browser quirk that only shows up in
 // the wild) used to leave real users staring at a permanent blank white
@@ -86,7 +89,12 @@ export function boot(root) {
       }
 
       const route = parseHash();
-      const tab = TAB_FOR_ROUTE[route.name] ?? 'home';
+      if (route.name === 'forest') {
+        navigate('#/home');
+        return;
+      }
+      const tab = route.name === 'root' ? lastTab : TAB_FOR_ROUTE[route.name] ?? 'home';
+      if (route.name !== 'root') lastTab = tab;
       mount(navHost, renderBottomNav(tab, (id) => navigate(`#/${id}`)));
 
       switch (route.name) {
@@ -96,11 +104,8 @@ export function boot(root) {
         case 'seeds':
           renderSeedLibrary(main);
           break;
-        case 'forest':
-          renderForest(main);
-          break;
         case 'root':
-          renderRootDetail(main, route.parts[1]);
+          renderRootDetail(main, route.parts[1], `#/${lastTab}`);
           break;
         case 'quiz':
           renderQuiz(main, route.parts[1] || null);

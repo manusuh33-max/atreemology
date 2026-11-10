@@ -6,7 +6,7 @@ import { exportProgress } from '../state/storage.js';
 import { ROOTS } from '../data/roots.js';
 import { COMING_SOON_ROOTS } from '../data/comingSoonRoots.js';
 import { renderJournalList } from '../ui/journalEntry.js';
-import { startTour } from '../tour.js';
+import { startTour } from '../tour.js?v=2';
 
 const CLOUD_ON = Boolean(window.__ATREEMOLOGY__ && window.__ATREEMOLOGY__.supabaseUrl);
 

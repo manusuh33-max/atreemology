@@ -4,7 +4,6 @@ import { icon } from './icons.js';
 const TABS = [
   { id: 'home', label: 'Home', icon: 'home' },
   { id: 'seeds', label: 'Seeds', icon: 'seed' },
-  { id: 'forest', label: 'Forest', icon: 'forest' },
   { id: 'rewards', label: 'Rewards', icon: 'reward' },
   { id: 'profile', label: 'Profile', icon: 'profile' },
 ];

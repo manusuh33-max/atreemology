@@ -8,6 +8,8 @@ import { allDueWords, suggestedAction, forestSummary } from '../state/selectors.
 import { getRoot } from '../data/roots.js';
 import { openWordSheet } from '../ui/wordSheet.js';
 import { navigate } from '../router.js';
+import { plantedRoots } from '../state/storage.js';
+import { renderForestScene, renderConstellationNote } from '../ui/forestScene.js';
 
 function greetingSprigLine(state, summary) {
   if (summary.treesPlanted === 0) return sprigLine('empty');
@@ -35,6 +37,7 @@ export function renderHome(container) {
   const state = getState();
   const summary = forestSummary(state);
   const due = allDueWords(state);
+  const planted = plantedRoots(state);
 
   const greetingName = state.profile.name ? `, ${state.profile.name}` : '';
 
@@ -46,14 +49,16 @@ export function renderHome(container) {
       el('div.streak-display', icon('flame', 22), el('span.streak-number', state.streak.current)),
       el('h1.home-greeting', `Welcome back${greetingName}`)
     ),
+    // The forest is the centrepiece: everything below it is progress detail.
+    el('section.home-forest', renderForestScene(planted, state, () => renderHome(container))),
     renderSprig(greetingSprigLine(state, summary), { calmMode: state.profile.calmMode }),
+    actionButton(state),
     el(
       'div.forest-stats-row',
       statTile('Trees planted', summary.treesPlanted, 'forest'),
       statTile('Words learned', summary.totalWordsLearned, 'leaf'),
       statTile('Forest health', `${summary.avgHealth}%`, 'droplet')
     ),
-    actionButton(state),
     due.length > 0
       ? el(
           'section.home-section',
@@ -69,6 +74,7 @@ export function renderHome(container) {
           )
         )
       : null,
+    planted.length >= 2 ? renderConstellationNote(state) : null,
     el(
       'section.home-section',
       el('div.section-heading-row', el('h2', 'Field journal'), el('button.link-btn', { onClick: () => navigate('#/profile') }, 'See all')),
